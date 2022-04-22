@@ -3,7 +3,6 @@ plugins {
     id("java-gradle-plugin")
     id("com.gradle.plugin-publish")
     `maven-publish`
-    id("net.linguica.maven-settings")
 }
 
 repositories {

@@ -2,8 +2,6 @@ plugins {
     java
     `maven-publish`
     id("org.springframework.boot")
-    // Maven encrypted password support
-    id("net.linguica.maven-settings")
     id("com.google.cloud.tools.jib")
     id("com.github.node-gradle.node")
     id("io.freefair.lombok")
