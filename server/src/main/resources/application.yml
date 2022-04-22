@@ -1,0 +1,29 @@
+spring:
+  devtools:
+    remote:
+      secret: somesecret
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+  jackson:
+    default-property-inclusion: non_empty
+  reactor:
+    stacktrace-mode.enabled: true
+  profiles:
+    include:
+      - images
+  webflux:
+    static-path-pattern: '/resources/**'
+  resources:
+    static-locations: 'classpath:/public/'
+
+server:
+  error:
+    includeStacktrace: ALWAYS
+  forward-headers-strategy: framework
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

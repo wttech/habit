@@ -1,0 +1,71 @@
+= Request processing graph
+:description: Request processing graph
+:sectanchors:
+:page-pagination:
+
+When Habit testing environment receives a test request it is sent to the Apache server within that environment. It is then processed by Apache httpd and possibly forwarded to another server which might be a real proxy or a mock.
+
+Exchange details (request + response) are recorded at each step before being forwarded to the target host.
+
+Together exchanges form a graph representing the way the request has been processed from the original request all the way to the final response returned to the client.
+
+== Deny all requests
+
+Let's image the simplest Apache configuration where 404 Not Found is returned in response to any request sent to `not-found.com` vhost.
+
+.vhosts/not-found.conf
+----
+RewriteRule ^ - [L,R=404]
+----
+
+The request processing graph will contain a root exchange and a single child exchange on the second level.
+
+The root exchange always consists of the original request and the final response.
+
+The child exchange will contain data intercepted by a MitM proxy placed right before the `not-found.com` host.
+
+image::simple-graph.png[]
+
+== HTTPS redirect
+
+If your configuration redirects all HTTP requests to HTTPS then the processing graph will be a bit more complicated.
+
+.vhosts/force-https.conf
+----
+// force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+// deny all HTTPS requests
+RewriteRule ^ - [L,R=404]
+----
+
+The root exchange will contain the same data but there will be two child exchanges at the second level:
+
+* HTTP request with a 301 response redirecting to HTTPS
+* HTTPS request with a 404 response
+
+image::redirect-graph.png[]
+
+== Reverse proxy
+
+In a reverse proxy setup Apache is responsible for forwarding requests to one of servers not reachable from the outside world.
+
+The configuration shown below will forward all `front-domain` vhost requests to `back-domain` host.
+
+In Habit testing environment `front-domain` would be processed by a real Apache server while `back-domain` would be a simple mock.
+
+.vhosts/front-domain.conf
+----
+// forward all requests to back-domain host
+RewriteRule (.*) http://back-domain:8080$1 [P]
+----
+
+Here the request processing graph will contain three exchanges, each on a different level:
+
+* root exchange stays the same
+* `front-domain` exchange contains the original request and the response returned by Apache
+* `back-domain` exchange contains the forwarded request (with rewritten URL) and the response returned by the mock server (200 OK with empty body)
+
+image::forward-graph.png[]
+

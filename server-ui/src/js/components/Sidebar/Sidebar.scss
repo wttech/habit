@@ -1,0 +1,60 @@
+@import "../../../scss/Utils/variables";
+
+.sidebar {
+  flex: 0 0 250px;
+  background: $color-dark;
+
+  .sidebar-brand {
+    text-align: center;
+    margin: 20px auto;
+    display: block;
+  }
+
+  .sidenav {
+    ul {
+      padding: 0;
+      list-style: none;
+
+      .sidenav-item {
+        margin-bottom: 5px;
+      }
+
+      .sidenav-link {
+        color: $color-grey;
+        font-size: 14px;
+        transition: color .3s;
+        text-decoration: none;
+
+        &:hover {
+          color: $color-white;
+
+          .svg-inline--fa {
+            color: $color-primary;
+          }
+        }
+
+        .svg-inline--fa {
+          width: 20px;
+          color: $color-grey;
+          transition: color .3s;
+        }
+      }
+
+      .sidenav-subnav-link {
+        font-size: 12px;
+        color: $color-grey;
+        transition: color .3s;
+        text-decoration: none;
+        padding-left: 22px;
+
+        &:hover {
+          color: $color-white;
+        }
+
+        .svg-inline--fa {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}

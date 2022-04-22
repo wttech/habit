@@ -1,0 +1,25 @@
+@import "../../../scss/Utils/variables";
+
+.craft-graph-container {
+  margin-top: 30px;
+
+  .graph-tab {
+    background: $color-dark;
+    padding: 15px;
+    box-shadow: $box-shadow;
+    border: 0;
+  }
+}
+
+.btn-tab.is-active {
+  background: $color-dark;
+  color: $color-white;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.log-grid-wrapper {
+  background: $color-white;
+  border-radius: 5px;
+  padding: 15px;
+}

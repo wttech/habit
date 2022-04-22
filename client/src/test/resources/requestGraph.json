@@ -1,0 +1,99 @@
+{
+  "subrequests": [
+    {
+      "request": {
+        "rootRequestId": "6aa1b7ce-0b0e-47c6-a3eb-776c84f203c0",
+        "parentRequestId": "6aa1b7ce-0b0e-47c6-a3eb-776c84f203c0",
+        "requestId": "83846b4e-9e0c-42ff-9c7c-5e45b67dfecb",
+        "timestamp": "2019-07-01T07:22:50.020290",
+        "protocol": "https",
+        "host": "public.domain",
+        "port": 443,
+        "method": "GET",
+        "fullPath": "/products",
+        "query": {},
+        "path": "/products",
+        "version": "HTTP/1.1",
+        "headers": {
+          "Host": "public.domain",
+          "Connection": "close",
+          "User-Agent": "PostmanRuntime/7.15.0",
+          "Accept": "*/*",
+          "Cache-Control": "no-cache",
+          "Postman-Token": "b6cf5356-eb4e-4e4e-b40e-597ba09bffdc",
+          "accept-encoding": "gzip, deflate"
+        },
+        "body": ""
+      },
+      "response": {
+        "rootRequestId": "6aa1b7ce-0b0e-47c6-a3eb-776c84f203c0",
+        "requestId": "83846b4e-9e0c-42ff-9c7c-5e45b67dfecb",
+        "timestamp": "2019-07-01T07:22:50.093357",
+        "headers": {
+          "Date": "Mon, 01 Jul 2019 07:22:50 GMT",
+          "Server": "BaseHTTP/0.6 Python/3.7.0",
+          "Strict-Transport-Security": "max-age=15768000",
+          "Content-Type": "text/html; charset=utf-8",
+          "Vary": "Accept-Encoding",
+          "Content-Encoding": "gzip",
+          "X-Frame-Options": "SAMEORIGIN",
+          "X-Content-Type-Options": "nosniff",
+          "X-XSS-Protection": "1; mode=block",
+          "Referrer-Policy": "no-referrer-when-downgrade",
+          "Connection": "close",
+          "Transfer-Encoding": "chunked"
+        },
+        "reason": "OK",
+        "statusCode": 200,
+        "body": "<!doctype html><html><head></head><body><p>Request arrived to backend.domain:8093</p></body></html>"
+      },
+      "subrequests": [
+        {
+          "request": {
+            "rootRequestId": "6aa1b7ce-0b0e-47c6-a3eb-776c84f203c0",
+            "parentRequestId": "83846b4e-9e0c-42ff-9c7c-5e45b67dfecb",
+            "requestId": "19c25bae-a99d-4332-b701-79e356a516fb",
+            "timestamp": "2019-07-01T07:22:50.070000",
+            "protocol": "http",
+            "host": "backend.domain",
+            "port": 8093,
+            "method": "GET",
+            "fullPath": "/products",
+            "path": "/products",
+            "version": "HTTP/1.1",
+            "headers": {
+              "Host": "backend.domain",
+              "User-Agent": "PostmanRuntime/7.15.0",
+              "Accept": "*/*",
+              "Cache-Control": "no-cache",
+              "Postman-Token": "b6cf5356-eb4e-4e4e-b40e-597ba09bffdc",
+              "accept-encoding": "gzip, deflate",
+              "X-Request-ID": "XRm0ymNBIikMPi-ezw9crwAAAAI",
+              "X-Forwarded-Port": "443",
+              "X-Forwarded-Proto": "https",
+              "X-Forwarded-For": "172.20.0.2",
+              "X-Forwarded-Host": "backend.domain",
+              "X-Forwarded-Server": "public.domain",
+              "Connection": "close"
+            },
+            "body": ""
+          },
+          "response": {
+            "rootRequestId": "6aa1b7ce-0b0e-47c6-a3eb-776c84f203c0",
+            "requestId": "19c25bae-a99d-4332-b701-79e356a516fb",
+            "timestamp": "2019-07-01T07:22:50.079586",
+            "headers": {
+              "Server": "BaseHTTP/0.6 Python/3.7.0",
+              "Date": "Mon, 01 Jul 2019 07:22:50 GMT",
+              "Content-Type": "text/html; charset=utf-8"
+            },
+            "reason": "OK",
+            "statusCode": 200,
+            "body": "<!doctype html><html><head></head><body><p>Request arrived to backend.domain:8093</p></body></html>"
+          },
+          "subrequests": []
+        }
+      ]
+    }
+  ]
+}

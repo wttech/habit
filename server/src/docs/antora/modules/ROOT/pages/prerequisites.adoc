@@ -1,0 +1,25 @@
+= Prerequisites
+:description: Prerequisites
+:sectanchors:
+:page-pagination:
+
+To be able to use Habit on your local machine you will need:
+
+* JDK 8+
+* Docker
+
+== Java
+
+For setting up the project you will need Java in version 8 or newer.
+
+https://adoptopenjdk.net/
+
+== Docker
+
+Habit Server must be hosted on Docker. The client side does not require it.
+
+On Linux just install the appropriate package.
+
+On Windows and Mac install Docker Desktop.
+
+Detailed instructions for all platforms can be found here: https://docs.docker.com/engine/install/.

@@ -1,0 +1,156 @@
+@import "Utils/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "Components/Card";
+@import "Components/Form";
+@import "Components/Icons";
+
+$header-height: 63px;
+$container-paddings: 32px; // padding-top 16px + padding-bottom: 16px;
+$total-space-occupied: $header-height + $container-paddings;
+
+html,
+body {
+	margin: 0;
+    padding: 0;
+    background: $color-white-smoke;
+    font-family: 'Roboto', sans-serif;
+}
+
+.toast-wrapper {
+    position: fixed;
+    top: 66px;
+    right: 20px;
+}
+
+.graph-tooltip {
+    z-index: 2000;
+}
+
+.log-line {
+    font-family: monospace;
+    &-highlight {
+        background-color: rgb(180, 224, 180);
+    }
+}
+
+.graph-json {
+    font-family: monospace;
+    font-size: small;
+}
+
+.request-list {
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.request-details {
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: $color-dark;
+    padding: 15px;
+    box-shadow: $box-shadow;
+    border-radius: 5px;
+
+    .list-group-item {
+        word-break: break-word;
+    }
+
+    .badge {
+        margin-bottom: auto;
+    }
+
+    .heading {
+        color: $color-white-smoke;
+        font-size: 20px;
+    }
+}
+
+.event-log {
+    display: flex;
+    flex: 1;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.exchange-log {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.fullscreen {
+    height: calc(100vh - #{$total-space-occupied});
+}
+
+.halfscreen {
+    height: 50%;
+}
+
+.craft-left-panel {
+    display: flex;
+    flex-flow: column;
+}
+
+.craft-right-panel {
+    display: flex;
+    flex-flow: column;
+}
+
+.item-with-badge {
+    display: flex;
+    justify-content: space-between;
+}
+
+.hidden {
+    display: none;
+}
+
+
+.craft-grid {
+    height: calc((100vh - #{$header-height}) / 2);
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
+}
+
+.craft-graph-container {
+    height: calc(100vh - #{$header-height});
+    max-height: calc(100vh - #{$header-height});
+    display: flex;
+    flex-direction: column;
+}
+
+.craft-event-log-container {
+    display: flex;
+    flex-direction: column;
+    overscroll-behavior: contain;
+}
+
+.graph-tab {
+    flex: 1;
+}
+
+.logs-section-item { 
+    font-size: smaller;
+}
+
+.logs-file-item {
+    font-size: smaller;
+}
+
+.last-requests-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.log-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 0px 5px;
+}
+
+.log-line-message {
+    word-wrap: break-word;
+    word-break: break-all;
+}

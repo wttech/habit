@@ -1,0 +1,33 @@
+{
+  "name": "antora-documentation",
+  "version": "0.12.0",
+  "description": "",
+  "private": true,
+  "engines": {
+    "node": ">=16.14.2",
+    "yarn": ">=3.2.0"
+  },
+  "scripts": {
+    "build:prod": "cross-env SITE_SEARCH_PROVIDER=lunr antora --clean --fetch antora-playbook.yml",
+    "build:dev": "cross-env SITE_SEARCH_PROVIDER=lunr antora antora-playbook.local.yml",
+    "watch:dev": "nodemon --watch ../engine/src/docs/antora -e adoc -x \"npm run build:dev\"",
+    "start-server": "http-server ./dist -c-1 -p 8081 -o",
+    "serve:dev": "concurrently -i -k npm:watch:dev npm:start-server",
+    "clean": "rm -rf ./dist"
+  },
+  "author": "Tomasz Krug",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@antora/cli": "3.0.1",
+    "@antora/lunr-extension": "1.0.0-alpha.6",
+    "@antora/site-generator": "3.0.1",
+    "concurrently": "7.1.0",
+    "cross-env": "7.0.3",
+    "http-server": "14.1.0",
+    "nodemon": "2.0.15",
+    "npm-run-all": "4.1.5"
+  },
+  "installConfig": {
+    "pnp": true
+  }
+}

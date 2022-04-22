@@ -1,0 +1,11 @@
+.gradle
+.idea
+build/
+*.iml
+*.ipr
+*.iws
+out/
+server/src/main/resources/public/main.css
+server/src/main/resources/public/bundle.js
+.env
+**/resources/public/stats.json

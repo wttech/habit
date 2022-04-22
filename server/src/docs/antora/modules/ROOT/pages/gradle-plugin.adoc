@@ -1,0 +1,91 @@
+= Gradle plugin
+:description: Gradle plugin
+:sectanchors:
+:page-pagination:
+
+Habit Gradle plugin is intended to help you with setting up Habit server locally, manual environment creation and configuration redeployment.
+
+While it is not mandatory the `:devMode` task comes in really handy when developing new Apache macros.
+
+== Setup
+
+To include Habit plugin in your build add it to the `plugins` block.
+
+.Gradle groovy
+[source,groovy,subs="attributes+"]
+----
+plugins {
+    id 'io.wttech.habit' version '{page-version}'
+}
+----
+
+.Gradle Kotlin DSL
+[source,kotlin,subs="attributes+"]
+----
+plugins {
+    id("io.wttech.habit") version "{page-version}"
+}
+----
+
+All artifacts have the same version number so it is useful to define Habit version in gradle.properties.
+
+.gradle.properties
+[source,properties,subs="attributes+"]
+----
+habitVersion=0.12.0
+----
+
+Then it can be used in settings.gradle.kts to define plugin version.
+
+.settings.gradle.kts
+[source,kotlin]
+----
+pluginManagement {
+    val habitVersion: String by settings
+
+    plugins {
+        id("io.wttech.habit") version "${habitVersion}"
+    }
+}
+----
+
+And in `build.gradle.kts` to define dependencies.
+
+.build.gradle.kts
+[source,kotlin]
+----
+plugins {
+    id("io.wttech.habit")
+}
+
+val habitVersion: String by project
+
+dependencies {
+    testCompile("io.wttech.habit:junit5:${habitVersion}")
+}
+----
+
+== Tasks
+
+
+|===
+|Name |Description
+
+|environmentStart
+|Create a new environment or update an existing one based on habit.json configuration. Apache configuration is deployed as well.
+
+|environmentShutdown
+|Destroy environment by the ID found in habit.json.
+
+|environmentRecreate
+|Recreate environment from scratch.
+
+|devMode
+|Listen for changes in Apache configuration and deploy it if needed.
+
+|serverProvision
+|Start Habit server on local docker.
+
+|serverShutdown
+|Remove Habit server from local docker.
+|===

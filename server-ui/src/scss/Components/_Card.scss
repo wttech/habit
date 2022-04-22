@@ -1,0 +1,14 @@
+.card {
+  background: $color-white;
+  box-shadow: $box-shadow;
+  border: 0;
+
+  &.card-dark-mode {
+    background: $color-dark;
+    color: $color-grey;
+
+    pre {
+      color: $color-grey;
+    }
+  }
+}

@@ -1,0 +1,24 @@
+.icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 10px;
+  border-radius: 50%;
+
+  &.icon-circle--success {
+    background-color: rgba($color-success, 0.1);
+    color: $color-success;
+  }
+
+  &.icon-circle--warning {
+    background-color: rgba($color-warning, 0.1);
+    color: $color-warning;
+  }
+
+  &.icon-circle--error {
+    background-color: rgba($color-error, 0.1);
+    color: $color-error;
+  }
+}

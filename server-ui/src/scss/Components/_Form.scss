@@ -1,0 +1,38 @@
+input.form-control {
+  border-radius: 4px 4px 0 0;
+  background: $color-white-smoke;
+  border: 0;
+  border-bottom: 1px solid $color-grey;
+  font-size: 12px;
+  transition: border .3s;
+
+  &:focus {
+    border-bottom-color: $color-primary;
+    outline:none;
+    box-shadow: none;
+    background: $color-white-smoke;
+
+  }
+}
+
+select.form-control {
+  border-radius: 4px 4px 0 0;
+  background: $color-white-smoke;
+  border: 0;
+  border-bottom: 1px solid $color-grey;
+  font-size: 12px;
+  transition: border .3s;
+
+  &:focus {
+    border-bottom-color: $color-primary;
+    outline:none;
+    box-shadow: none;
+    background: $color-white-smoke;
+
+  }
+}
+
+
+.form-row {
+  margin-bottom: 10px;
+}

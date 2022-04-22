@@ -1,0 +1,32 @@
+version: "3.6"
+services:
+  server:
+    image: "${SERVER_IMAGE}"
+    ports:
+      - "${HABIT_HTTP_PORT}:8080"
+    networks:
+      core:
+        aliases:
+          - api.habit
+          - web.habit
+    restart: always
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      - type: volume
+        source: habit-db
+        target: /opt/habit
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+networks:
+  core:
+    driver: overlay
+    attachable: true
+    labels:
+      - "io.wttech.habit=core"
+
+volumes:
+  habit-db:

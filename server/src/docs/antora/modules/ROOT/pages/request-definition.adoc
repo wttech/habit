@@ -1,0 +1,162 @@
+= Request definition
+:description: Request definition
+:sectanchors:
+:page-pagination:
+
+To start the request definition first we have to define a special parameter of class `HabitRequestDSL` in a test method which will be injected by Habit JUnit extension.
+
+It can be injected either directly into a test method or assigned to a field with the use of beforeEach lifecycle method.
+
+.Injecting into a test method
+[source,java]
+----
+@HabitTest
+public class BasicRequestTest {
+
+  @Test
+  public void testMethod(HabitRequestDSL habit) {
+    // ... request definition and assertions ...
+  }
+
+}
+----
+
+.Injecting into a field
+[source,java]
+----
+@HabitTest
+public class BasicRequestTest {
+
+  private HabitRequestDSL habit;
+
+  @BeforeEach
+  private void beforeEach(HabitRequestDSL habit) {
+    this.habit = habit;
+  }
+
+}
+----
+
+In the following examples I'll be making use of the second approach.
+
+== Request parameters
+
+`HabitRequestDSL` supports defining the HTTP method, protocol, target host, port, path, query string parameters, headers and string body content.
+
+Each example ends with `.assertThat()` method invocation which sends the request and switches DSL to the assertion mode. Assertions are omitted here but are explained on the next page.
+
+[source,java]
+----
+@HabitTest
+public class BasicRequestTest {
+
+  // GET http://front.domain.com
+  @Test
+  public void getRootRequest() {
+    habit.request()
+        .http()
+        .get()
+        .host("front.domain.com")
+        .assertThat();
+  }
+
+  // GET http://front.domain.com/
+  @Test
+  public void getSlashRequest() {
+    habit.request()
+        .http()
+        .get()
+        .host("front.domain.com")
+        .path("/")
+        .assertThat();
+  }
+
+  // GET http://front.domain.com:8080
+  @Test
+  public void getCustomPort() {
+    habit.request()
+        .http()
+        .get()
+        .host("front.domain.com")
+        .port(80)
+        .path("/")
+        .assertThat();
+  }
+
+  // DELETE http://front.domain.com/products/1
+  @Test
+  public void deleteNestedPath() {
+    habit.request()
+        .http()
+        .delete()
+        .host("front.domain.com")
+        .path("/products/1")
+        .assertThat();
+  }
+
+  // GET http://front.domain.com/search?name=foo
+  @Test
+  public void getWithQueryParameter() {
+    habit.request()
+        .http()
+        .get()
+        .host("front.domain.com")
+        .path("/search")
+        .queryParameter("name", "foo")
+        .assertThat();
+  }
+
+  // POST http://front.domain.com/products
+  @Test
+  public void postWithHeader() {
+    habit.request()
+        .http()
+        .post()
+        .host("front.domain.com")
+        .path("/products")
+        .header("Authorization", "Basic YWxhZGRpbjpvcGVuc2VzYW1l")
+        .assertThat();
+  }
+
+}
+----
+
+== Common setups
+
+Some properties like `host` and `protocol` tend to be repeated in every test. To support request partial definition reuse an overload of `.request()` method was introduced.
+
+This overload accepts a `Consumer<RequestDefinitionDSL>`. Thanks to Java 8 and lambda support a method reference can be passed instead.
+
+This is how it works.
+
+.Injecting into a field
+[source,java]
+----
+@HabitTest
+public class BasicRequestTest {
+
+  // GET http://front.domain.com
+  @Test
+  public void getRootRequest() {
+    habit.request(BasicRequestTest::frontDomainHttp)
+        .get()
+        .assertThat();
+  }
+
+  // GET http://front.domain.com/
+  @Test
+  public void getSlashRequest() {
+    habit.request(BasicRequestTest::frontDomainHttp)
+        .get()
+        .path("/")
+        .assertThat();
+  }
+
+  public static void frontDomainHttp(RequestDefinitionDSL request) {
+    request
+        .http()
+        .host("front.domain.com");
+  }
+
+}
+----

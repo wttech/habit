@@ -1,0 +1,226 @@
+= Project setup
+:description: Setup
+:sectanchors:
+:page-pagination:
+
+To be able to create the testing environment based on your httpd configuration first you have to create a project similar to standard Java archetype.
+
+It will contain Apache configuration, environment details and the testing code.
+
+* project root
+** gradle - Gradle wrapper folder
+** httpdConfiguration - tested Apache configuration
+** src
+*** main - empty as we will only be writing test code
+*** test
+**** java - JUnit test classes asserting request processing
+**** resources
+** build.gradle.kts - Habit JUnit 5 integration
+** gradlew - Gradle wrapper UNIX script
+** gradlew.bat - Gradle wrapper Windows script
+** habit.json - Habit configuration
+
+== Dependencies setup
+
+To be able to communicate with Habit Server a client library must be included in the project.
+
+We will be using:
+
+* JUnit 5
+* Habit JUnit 5 extension
+* Logback
+
+.build.gradle.kts
+[source,kotlin,subs="attributes+"]
+----
+dependencies {
+    // Habit JUnit 5 plugin
+    testImplementation("io.wttech.habit:junit5:{page-version}")
+    // JUnit 5
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.6.0")
+    testImplementation("org.junit.platform:junit-platform-runner:1.6.0")
+    // logging
+    testImplementation("ch.qos.logback:logback-classic:1.2.3")
+}
+----
+
+== Gradle JUnit setup
+
+Since we're using Gradle we have to remember to set up the JUnit 5 integration.
+
+.build.gradle.kts
+[source,kotlin]
+----
+tasks.withType<Test> {
+    useJUnitPlatform()
+    testLogging.showStandardStreams = true
+}
+----
+
+== Apache configuration
+
+The `httpdConfiguration` folder contains all Apache related files that will be copied to fresh Apache installation in the test environment.
+
+Only include the files that contain your changes. There's no need to duplicate what's available in the base Apache docker image.
+
+There is no enforced directory structure inside but it's best to mimick the standard one as no additional mapping will be required.
+
+* httpdConfiguration
+** conf.d
+*** mod_core.conf
+*** mod_deflate.conf
+** conf.modules.d
+*** 00-base.conf
+*** 00-ssl.conf
+** macros
+*** custom-macro.conf
+** ssl
+*** domain.key
+*** domain.pem
+** vhosts
+*** custom-vhost.conf
+** http.conf
+
+== Apache setup requirements
+
+There are two special headers used by Habit. If you have implemented header filtering on the Apache level be sure to pass them through.
+
+* X-Habit-Root-Request-Id
+* X-Habit-Request-Id
+
+== Environment configuration
+
+In addition to the Apache configuration itself Habit requires additional information about the environment to be built.
+
+* ID of the environment as multiple can exist on a single server
+* subnetwork details
+* list of Apache servers to be created together with DNS entries, port mapping and configuration deployment details
+* list of external server that should be mocked in order for tested request to be processed correctly
+
+All this information should be stored in a file named `habit.json` located right under the project root folder.
+
+.habit.json
+[source,json5]
+----
+{
+  // identifier of environment created based on this configuration
+  "id": "example",
+  // network details - required when IP authorization is enabled in Apache, optional
+  "network": {
+    "subnet": "172.30.0.0/16",
+    "ipRange": "172.30.0.0/16",
+    "gateway": "172.30.0.1"
+  },
+  // list of Apache servers to be created
+  "servers": [
+    {
+      // identifier
+      "name": "main",
+      // list of domains under which this server should be reachable
+      "domains": [
+        "front.domain.com"
+      ],
+      // list of Apache log files
+      // use absolute paths appropriate to your base docker image
+      "logFiles": [
+        "/usr/local/apache2/front.domain.com_error.log"
+      ],
+      "deploy": {
+        // list of paths to be copied to testing environment
+        "paths": [
+          {
+            // local path relative to project root folder
+            "source": "httpdConfiguration",
+            // absolute path within a docker container
+            "target": "/usr/local/apache2/conf"
+          }
+        ],
+        // command to reload the Apache instead of recreating the whole container
+        "reloadCommand": "apachectl -k graceful"
+      },
+      // normal ports on which Apache is listening
+      "ports": [80],
+      // SSL ports on which Apache is listening
+      "sslPorts": [443],
+      // docker details
+      "docker": {
+        "image": "httpd:2.4.38"
+      }
+    }
+  ],
+  // list of request targets to be mocked
+  // needed only if your Apache configuration forwards requests to an external server
+  "mocks": [
+    {
+      // name under which mock should be reachable in the network
+      "hostname": "back.domain.local",
+      // list of ports on which mock should respond
+      "ports": [80]
+    }
+  ]
+}
+
+----
+
+== Tests
+
+Habit automated tests look similar to normal JUnit tests. We just need to:
+
+* create test class
+* register Habit JUnit extension using the `@HabitTest` annotation on the class level
+* mark test cases with the `@Test` annotation
+* in each test define the original request and assert its processing path
+
+`@HabitTest` is metaannotated with JUnit extension annotations. By marking test class with it a link is created between the project and the Habit server.
+
+.BasicRequestTest.java
+[source,java]
+----
+@HabitTest
+public class BasicRequestTest {
+
+  // ... test case methods ...
+
+}
+----
+
+Habit JUnit extension exposes a special object of type `HabitRequestDSL` which can be injected in test methods and beforeEach lifecycle method as a parameter.
+
+This parameter represents an entrypoint to Habit with which original request can be defined and the result verified.
+
+.BasicRequestTest.java
+[source,java]
+----
+@HabitTest
+public class BasicRequestTest {
+
+  @Test
+  @DisplayName("GET request is processed")
+  public void getRequestIsProcessed(HabitRequestDSL habit) {
+    // ... request definition and assertions ...
+  }
+
+}
+----
+
+Let's send a simple request to `http://front.domain.com:80/` and verify that response code is 200 OK.
+
+.BasicRequestTest.java
+[source,java]
+----
+@HabitTest
+public class BasicRequestTest {
+
+  @Test
+  @DisplayName("GET request is processed")
+  public void getRequestIsProcessed(HabitRequestDSL habit) {
+    habit.request()
+        .http()
+        .get()
+        .host("front.domain.com")
+        .path("/")
+        .assertThat().exchange().response().code().isOk();
+  }
+
+}
+----

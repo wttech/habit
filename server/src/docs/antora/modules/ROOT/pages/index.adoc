@@ -1,0 +1,26 @@
+= Habit
+:description: Habit documentation
+:sectanchors:
+:page-pagination:
+
+Automated and exploratory testing of Apache HTTPd.
+
+== What for?
+
+Apache HTTPd configuration can contain a lot of request dispatch logic implemented with rewrite rules and regular expressions which are not easy to process in your head.
+
+With Habit you can test your Apache configuration end to end in an automated way just like you would test your application. Define the original request and verify the details after it has been processed by Apache.
+
+Can't pinpoint the root cause of a bug? Use web interface for exploratory testing. Define the request and see how it is processed hop by hop.
+
+== Features
+
+* JUnit 5 integration
+* Verifying HTTP request final destination
+* Checking HTTP request and response details on every hop
+* Asserting rewrite rules end result
+* Following redirects
+* Tests executed against a stable docker environment
+* Automatic Apache reload on configuration change in dev mode
+* Exploratory testing with Postman-like web interface
+* Graphical representation of request processing

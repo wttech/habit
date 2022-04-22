@@ -1,0 +1,23 @@
+site:
+  title: Habit reference
+  url: https://wttech.github.io/habit
+  start_page: ROOT::index.adoc
+content:
+  sources:
+    - url: ../
+      branches: HEAD
+      start_path: server/src/docs/antora
+output:
+  dir: ./dist
+urls:
+  latest_version_segment: latest
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files: ./ui
+runtime:
+  cache_dir: ./.cache/antora
+antora:
+  extensions:
+    - require: '@antora/lunr-extension'

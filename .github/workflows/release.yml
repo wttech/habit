@@ -1,0 +1,56 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to release from'
+        required: true
+        default: ''
+      type:
+        description: 'Release type (hotfix / minor / major)'
+        required: true
+        default: 'minor'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: kanga333/variable-mapper@v0.2.0
+        with:
+          key: "${{ github.event.inputs.type }}"
+          map: |
+            {
+              "hotfix": {
+                "releaseType": "incrementPatch"
+              },
+              "minor": {
+                "releaseType": "incrementMinor"
+              },
+              "major": {
+                "releaseType": "incrementMajor"
+              },
+              ".*": {
+                "releaseType": "invalid"
+              }
+            }
+      - name: Checkout the selected branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch }}
+          fetch-depth: 0
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '8'
+      - name: Local release
+        run: ./gradlew :createRelease -Prelease.versionIncrementer=${{ env.releaseType }}
+      - name: Verify build
+        run: ./gradlew build javadoc
+      - name: Push release to repository
+        run: ./gradlew :pushRelease -Prelease.customUsername="${{ github.actor }}" -Prelease.customPassword="${{ github.token }}"
+      - name: Upload artifacts to Maven Central staging
+        run: ./gradlew publish :closeAndReleaseStagingRepository -PsigningPassword="${{ secrets.MAVEN_KEY_PASS }}" -PsigningKey="${{ secrets.MAVEN_KEY }}" -PsonatypeUsername="${{ secrets.OSSRH_USER }}" -PsonatypePassword="${{ secrets.OSSRH_PASS }}"

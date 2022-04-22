@@ -1,0 +1,14 @@
+habit:
+  images:
+    common:
+      registry: ''
+      folder: 'habitester'
+      tag: '${version}'
+    request-persister:
+      image: 'request-persister'
+    request-graph-server:
+      image: 'request-graph-server'
+    mock-server:
+      image: 'mock-server'
+    environment-front-proxy:
+      image: 'environment-front-proxy'

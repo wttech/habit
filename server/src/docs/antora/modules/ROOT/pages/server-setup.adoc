@@ -1,0 +1,42 @@
+= Server setup
+:description: Server setup
+:sectanchors:
+:page-pagination:
+
+Habit server is the central hub with which clients can communicate to create test environments and to send test requests. It can be set up on your local machine or on shared infrastructure.
+
+There are two ways to set it up:
+
+* through Habit Gradle plugin
+* with Habit installer
+
+No matter which method is used you will end up with the same Habit stack created on your Docker Swarm installation.
+
+== Gradle plugin
+
+This approach is ideal for the local environment where a Habit project has already been set up either from scratch or by cloning a git repository.
+
+Add the plugin to the `build.gradle.kts` file.
+
+.build.gradle.kts
+[source,kotlin,subs="attributes+"]
+----
+plugins {
+    id("io.wttech.habit") version "{page-version}"
+}
+----
+
+To install the server execute the `./gradlew :serverProvision` command.
+
+To uninstall execute the `./gradlew :serverShutdown` command or just remove the `habit` stack from your Docker.
+
+//== Standalone installer
+//
+//If you want to install Habit on shared infrastructure then it should be easier to clone the Habit installer repository and execute its installation script.
+//
+//* `git clone https://github.com/wttech/habit-installer.git`
+//* `cd habit-installer`
+//* `./install.sh`
+//
+//To remove the server execute the `./uninstall.sh` command or just remove the `habit` stack from your Docker.
+

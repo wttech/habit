@@ -1,0 +1,152 @@
+= Assertions
+:description: Assertions
+:sectanchors:
+:page-pagination:
+
+Once request definition is marked as complete by invoking the `.assertThat()` method the DSL switches to the assertion mode where the request processing graph can be verified.
+
+== Traversing
+
+The `GraphAssertion` object returned by `.assertThat()` exposes methods for accessing the root exchange details (graph node) and for traversing deeper to child subgraphs.
+
+Every subgraph has an exchange at its root and every exchange sits at the root of exactly one subgraph. Exchange and subgraph terms can be used interchangeably as there is 1:1 relationship between them.
+
+All exchanges are identifiable only by the order in which they were processed in relation to the parent exchange. Order is determined based on the time when the request has been intercepted.
+
+* `GraphAssertion.subgraph(int index)` - access a subgraph by the 0-based index
+* `GraphAssertion.firstSubgraph()`
+* `GraphAssertion.lastSubgraph()`
+
+With these methods you are able to navigate one level deeper on each invocation. To retrieve the request sent to the mock server behind a reverse proxy you have to chain the traversal methods invocation.
+
+`.assertThat().firstSubgraph().firstSubgraph()` - subgraph starting at the third level is returned
+
+To allow reuse of common traversal logic a special method is exposed by the API. With `traverse(Function<GraphAssertion, GraphAssertion> traversal)` you are able to reference a method encapsulating the traversal logic.
+
+.traverse() example
+[source,java]
+----
+@HabitTest
+public class TraversalTest {
+
+  @Test
+  public void test(HabitRequestDSL habit) {
+    // ... request definition ...
+    .assertThat().traverse(TraversalTest::toBehindReverseProxy)
+    // ... exchange assertions ...
+  }
+
+  public static GraphAssertion toBehindReverseProxy(GraphAssertion graph) {
+    return graph.firstSubgraph().firstSubgraph();
+  }
+
+}
+----
+
+== Exchange details
+
+After you successfully navigated to the exchange of your choice it's time to verify its details.
+
+Both request and response can be examined. Here's a list of all verifiable properties.
+
+Request:
+
+* method
+* protocol
+* protocol version
+* host
+* port
+* path
+* query string
+* headers
+* body
+
+Response:
+
+* code
+* headers
+* body
+
+Verification of request details comes in handy especially when testing if rewrite rules correctly written the URL and proxied the request to the correct host. So first traverse to the exchange initiated by Apache and then add some checks.
+
+Verification of response is a great way of checking if path / method / query string filtering mechanism is correctly implemented. Also any header added to the response by Apache (ie. HTTPS related ones) can be checked in this fashion. In this case you don't have to traverse the graph as the root exchange response contains all the information you need.
+
+In the examples below I assume the subgraph variable contains a `GraphAssertion` object.
+
+=== Request assertions
+
+.Checking if it is a POST request
+[source,java]
+----
+subgraph.exchange().request().method().isPost();
+----
+
+.Checking if request is targeted at standard HTTPS port (443)
+[source,java]
+----
+subgraph.exchange().request().port().isHttps();
+----
+
+.Checking if request is targeted at port 8080
+[source,java]
+----
+subgraph.exchange().request().port().is(8080);
+----
+
+.Checking if request header "Accept" exists
+[source,java]
+----
+subgraph.exchange().request().headers().accept().isPresent();
+----
+
+.Checking if request path is "/api/products"
+[source,java]
+----
+subgraph.exchange().request().path().is("/api/products");
+----
+
+.Checking if request header "Accept" exists
+[source,java]
+----
+subgraph.exchange().request().headers().accept().isPresent();
+----
+
+.Checking if there's only one query string parameter named "productId"
+[source,java]
+----
+subgraph.exchange().request().queyr().parameter("productId").values().count(1);
+----
+
+=== Response assertions
+
+.Verifying the response code is 200 OK
+[source,java]
+----
+subgraph.exchange().response().code().isOk();
+----
+
+.Verifying the response code is 404 Not Found
+[source,java]
+----
+subgraph.exchange().response().code().isNotFound();
+----
+
+.Verifying the response code is 480 (custom, not in standard)
+[source,java]
+----
+subgraph.exchange().response().code().is(480);
+----
+
+.Verifying if response contains a custom header
+[source,java]
+----
+subgraph.exchange().response().headers().byName("X-Custom-Header").isPresent();
+----
+
+== Extensions
+
+Every class exposed in exchange assertion API contains an additional method `verify(Consumer<> verificationLogic)` with which it is possible to reference a method containing assertion logic not present in the original API.
+
+Is serves the same purpose as `GraphAssertion.traverse(methodReference)` and `HabitRequestDSL.request(methodReference)` methods.
+
+In a way it is similar to Kotlin extension methods mechanism but a bit more verbose and available only where the `verify` method is defined.
