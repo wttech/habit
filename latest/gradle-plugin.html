@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Gradle plugin :: Habit reference</title>
+    <link rel="canonical" href="https://wttech.github.io/habit/latest/gradle-plugin.html">
+    <link rel="prev" href="assertions.html">
+    <link rel="next" href="exploratory-testing.html">
+    <meta name="description" content="Gradle plugin">
+    <meta name="generator" content="Antora 3.0.1">
+    <link rel="stylesheet" href="../_/css/site.css">
+    <script>var uiRootPath = '../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://wttech.github.io/habit">Habit reference</a>
+         <div class="navbar-item search hide-for-print">
+            <div id="search-field" class="field">
+                <input id="search-input" type="text" placeholder="Search the docs">
+            </div>
+        </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ROOT" data-version="0.12.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Habit</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Habit</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="project-setup.html">Project setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="server-setup.html">Server setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="test-execution.html">Automated tests</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="request-definition.html">Request definition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="request-processing.html">Request processing graph</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="assertions.html">Assertions</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="gradle-plugin.html">Gradle plugin</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="exploratory-testing.html">Exploratory testing</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Habit</span>
+    <span class="version">0.12.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">Habit</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">0.12.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Habit</a></li>
+    <li><a href="gradle-plugin.html">Gradle plugin</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/wttech/habit/edit/main/server/src/docs/antora/modules/ROOT/pages/gradle-plugin.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Gradle plugin</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Habit Gradle plugin is intended to help you with setting up Habit server locally, manual environment creation and configuration redeployment.</p>
+</div>
+<div class="paragraph">
+<p>While it is not mandatory the <code>:devMode</code> task comes in really handy when developing new Apache macros.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_setup"><a class="anchor" href="#_setup"></a>Setup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To include Habit plugin in your build add it to the <code>plugins</code> block.</p>
+</div>
+<div class="listingblock">
+<div class="title">Gradle groovy</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">plugins {
+    id 'io.wttech.habit' version '0.12.0'
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Gradle Kotlin DSL</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">plugins {
+    id("io.wttech.habit") version "0.12.0"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>All artifacts have the same version number so it is useful to define Habit version in gradle.properties.</p>
+</div>
+<div class="listingblock">
+<div class="title">gradle.properties</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">habitVersion=0.12.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then it can be used in settings.gradle.kts to define plugin version.</p>
+</div>
+<div class="listingblock">
+<div class="title">settings.gradle.kts</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">pluginManagement {
+    val habitVersion: String by settings
+
+    plugins {
+        id("io.wttech.habit") version "${habitVersion}"
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And in <code>build.gradle.kts</code> to define dependencies.</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle.kts</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">plugins {
+    id("io.wttech.habit")
+}
+
+val habitVersion: String by project
+
+dependencies {
+    testCompile("io.wttech.habit:junit5:${habitVersion}")
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tasks"><a class="anchor" href="#_tasks"></a>Tasks</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">environmentStart</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create a new environment or update an existing one based on habit.json configuration. Apache configuration is deployed as well.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">environmentShutdown</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Destroy environment by the ID found in habit.json.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">environmentRecreate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recreate environment from scratch.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">devMode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Listen for changes in Apache configuration and deploy it if needed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">serverProvision</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start Habit server on local docker.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">serverShutdown</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove Habit server from local docker.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="assertions.html">Assertions</a></span>
+  <span class="next"><a href="exploratory-testing.html">Exploratory testing</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script src="../_/js/vendor/lunr.js"></script>
+<script src="../_/js/search-ui.js" id="search-ui-script" data-site-root-path=".." data-snippet-length="100" data-stylesheet="../_/css/search.css"></script>
+<script async src="../search-index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Assertions :: Habit reference</title>
+    <link rel="canonical" href="https://wttech.github.io/habit/latest/assertions.html">
+    <link rel="prev" href="request-processing.html">
+    <link rel="next" href="gradle-plugin.html">
+    <meta name="description" content="Assertions">
+    <meta name="generator" content="Antora 3.0.1">
+    <link rel="stylesheet" href="../_/css/site.css">
+    <script>var uiRootPath = '../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://wttech.github.io/habit">Habit reference</a>
+         <div class="navbar-item search hide-for-print">
+            <div id="search-field" class="field">
+                <input id="search-input" type="text" placeholder="Search the docs">
+            </div>
+        </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ROOT" data-version="0.12.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Habit</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Habit</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="project-setup.html">Project setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="server-setup.html">Server setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="test-execution.html">Automated tests</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="request-definition.html">Request definition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="request-processing.html">Request processing graph</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="assertions.html">Assertions</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="gradle-plugin.html">Gradle plugin</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="exploratory-testing.html">Exploratory testing</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Habit</span>
+    <span class="version">0.12.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">Habit</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">0.12.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Habit</a></li>
+    <li><a href="assertions.html">Assertions</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/wttech/habit/edit/main/server/src/docs/antora/modules/ROOT/pages/assertions.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Assertions</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once request definition is marked as complete by invoking the <code>.assertThat()</code> method the DSL switches to the assertion mode where the request processing graph can be verified.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_traversing"><a class="anchor" href="#_traversing"></a>Traversing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>GraphAssertion</code> object returned by <code>.assertThat()</code> exposes methods for accessing the root exchange details (graph node) and for traversing deeper to child subgraphs.</p>
+</div>
+<div class="paragraph">
+<p>Every subgraph has an exchange at its root and every exchange sits at the root of exactly one subgraph. Exchange and subgraph terms can be used interchangeably as there is 1:1 relationship between them.</p>
+</div>
+<div class="paragraph">
+<p>All exchanges are identifiable only by the order in which they were processed in relation to the parent exchange. Order is determined based on the time when the request has been intercepted.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GraphAssertion.subgraph(int index)</code> - access a subgraph by the 0-based index</p>
+</li>
+<li>
+<p><code>GraphAssertion.firstSubgraph()</code></p>
+</li>
+<li>
+<p><code>GraphAssertion.lastSubgraph()</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>With these methods you are able to navigate one level deeper on each invocation. To retrieve the request sent to the mock server behind a reverse proxy you have to chain the traversal methods invocation.</p>
+</div>
+<div class="paragraph">
+<p><code>.assertThat().firstSubgraph().firstSubgraph()</code> - subgraph starting at the third level is returned</p>
+</div>
+<div class="paragraph">
+<p>To allow reuse of common traversal logic a special method is exposed by the API. With <code>traverse(Function&lt;GraphAssertion, GraphAssertion&gt; traversal)</code> you are able to reference a method encapsulating the traversal logic.</p>
+</div>
+<div class="listingblock">
+<div class="title">traverse() example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@HabitTest
+public class TraversalTest {
+
+  @Test
+  public void test(HabitRequestDSL habit) {
+    // ... request definition ...
+    .assertThat().traverse(TraversalTest::toBehindReverseProxy)
+    // ... exchange assertions ...
+  }
+
+  public static GraphAssertion toBehindReverseProxy(GraphAssertion graph) {
+    return graph.firstSubgraph().firstSubgraph();
+  }
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exchange_details"><a class="anchor" href="#_exchange_details"></a>Exchange details</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After you successfully navigated to the exchange of your choice it&#8217;s time to verify its details.</p>
+</div>
+<div class="paragraph">
+<p>Both request and response can be examined. Here&#8217;s a list of all verifiable properties.</p>
+</div>
+<div class="paragraph">
+<p>Request:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>method</p>
+</li>
+<li>
+<p>protocol</p>
+</li>
+<li>
+<p>protocol version</p>
+</li>
+<li>
+<p>host</p>
+</li>
+<li>
+<p>port</p>
+</li>
+<li>
+<p>path</p>
+</li>
+<li>
+<p>query string</p>
+</li>
+<li>
+<p>headers</p>
+</li>
+<li>
+<p>body</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Response:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>code</p>
+</li>
+<li>
+<p>headers</p>
+</li>
+<li>
+<p>body</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Verification of request details comes in handy especially when testing if rewrite rules correctly written the URL and proxied the request to the correct host. So first traverse to the exchange initiated by Apache and then add some checks.</p>
+</div>
+<div class="paragraph">
+<p>Verification of response is a great way of checking if path / method / query string filtering mechanism is correctly implemented. Also any header added to the response by Apache (ie. HTTPS related ones) can be checked in this fashion. In this case you don&#8217;t have to traverse the graph as the root exchange response contains all the information you need.</p>
+</div>
+<div class="paragraph">
+<p>In the examples below I assume the subgraph variable contains a <code>GraphAssertion</code> object.</p>
+</div>
+<div class="sect2">
+<h3 id="_request_assertions"><a class="anchor" href="#_request_assertions"></a>Request assertions</h3>
+<div class="listingblock">
+<div class="title">Checking if it is a POST request</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">subgraph.exchange().request().method().isPost();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Checking if request is targeted at standard HTTPS port (443)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">subgraph.exchange().request().port().isHttps();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Checking if request is targeted at port 8080</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">subgraph.exchange().request().port().is(8080);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Checking if request header "Accept" exists</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">subgraph.exchange().request().headers().accept().isPresent();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Checking if request path is "/api/products"</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">subgraph.exchange().request().path().is("/api/products");</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Checking if request header "Accept" exists</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">subgraph.exchange().request().headers().accept().isPresent();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Checking if there&#8217;s only one query string parameter named "productId"</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">subgraph.exchange().request().queyr().parameter("productId").values().count(1);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response_assertions"><a class="anchor" href="#_response_assertions"></a>Response assertions</h3>
+<div class="listingblock">
+<div class="title">Verifying the response code is 200 OK</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">subgraph.exchange().response().code().isOk();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Verifying the response code is 404 Not Found</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">subgraph.exchange().response().code().isNotFound();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Verifying the response code is 480 (custom, not in standard)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">subgraph.exchange().response().code().is(480);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Verifying if response contains a custom header</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">subgraph.exchange().response().headers().byName("X-Custom-Header").isPresent();</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extensions"><a class="anchor" href="#_extensions"></a>Extensions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every class exposed in exchange assertion API contains an additional method <code>verify(Consumer&lt;&gt; verificationLogic)</code> with which it is possible to reference a method containing assertion logic not present in the original API.</p>
+</div>
+<div class="paragraph">
+<p>Is serves the same purpose as <code>GraphAssertion.traverse(methodReference)</code> and <code>HabitRequestDSL.request(methodReference)</code> methods.</p>
+</div>
+<div class="paragraph">
+<p>In a way it is similar to Kotlin extension methods mechanism but a bit more verbose and available only where the <code>verify</code> method is defined.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="request-processing.html">Request processing graph</a></span>
+  <span class="next"><a href="gradle-plugin.html">Gradle plugin</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script src="../_/js/vendor/lunr.js"></script>
+<script src="../_/js/search-ui.js" id="search-ui-script" data-site-root-path=".." data-snippet-length="100" data-stylesheet="../_/css/search.css"></script>
+<script async src="../search-index.js"></script>
+  </body>
+</html>

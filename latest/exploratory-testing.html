@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Exploratory testing :: Habit reference</title>
+    <link rel="canonical" href="https://wttech.github.io/habit/latest/exploratory-testing.html">
+    <link rel="prev" href="gradle-plugin.html">
+    <link rel="next" href="architecture.html">
+    <meta name="description" content="Exploratory testing">
+    <meta name="generator" content="Antora 3.0.1">
+    <link rel="stylesheet" href="../_/css/site.css">
+    <script>var uiRootPath = '../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://wttech.github.io/habit">Habit reference</a>
+         <div class="navbar-item search hide-for-print">
+            <div id="search-field" class="field">
+                <input id="search-input" type="text" placeholder="Search the docs">
+            </div>
+        </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ROOT" data-version="0.12.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Habit</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Habit</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="project-setup.html">Project setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="server-setup.html">Server setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="test-execution.html">Automated tests</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="request-definition.html">Request definition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="request-processing.html">Request processing graph</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="assertions.html">Assertions</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="gradle-plugin.html">Gradle plugin</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="exploratory-testing.html">Exploratory testing</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Habit</span>
+    <span class="version">0.12.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">Habit</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">0.12.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Habit</a></li>
+    <li><a href="exploratory-testing.html">Exploratory testing</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/wttech/habit/edit/main/server/src/docs/antora/modules/ROOT/pages/exploratory-testing.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Exploratory testing</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Habit server exposes web interface on port 7080 where you can manually craft requests with a Postman-like interface and check the visual representation of request processing graph.</p>
+</div>
+<div class="paragraph">
+<p>To be able to use this feature you have to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>set up the Habit server</p>
+</li>
+<li>
+<p>set up the project - JUnit tests are optional</p>
+</li>
+<li>
+<p>create the testing environment through Habit Gradle plugin task <code>:environmentStart</code></p>
+</li>
+<li>
+<p>visit the <code><a href="http://server-host:7080" class="bare">http://server-host:7080</a></code> URL in a browser</p>
+</li>
+<li>
+<p>go to your environment to the request crafting section</p>
+</li>
+<li>
+<p>define a request, sent it and check the graph</p>
+</li>
+<li>
+<p>make changes to Apache configuration</p>
+</li>
+<li>
+<p>deploy changes by executing <code>./gradlew :environmentStart</code></p>
+</li>
+<li>
+<p>send the same request again to check the updated processing graph</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dev_mode"><a class="anchor" href="#_dev_mode"></a>Dev mode</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Manually starting configuration deployment after introducing every change might be a bit tedious. To make things easier a dev mode is supported by the Gradle plugin.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>execute <code>./gradlew :devMode</code></p>
+</li>
+<li>
+<p>introduce changes to Apache configuration</p>
+</li>
+<li>
+<p>save the file</p>
+</li>
+<li>
+<p>configuration will be deployed automatically</p>
+</li>
+<li>
+<p>in case of syntax errors an appropriate message will be shown in the terminal</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Dev mode is not that useful when executing JUnit tests as it will make sure the newest configuration is deployed before running any test.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_web_interface"><a class="anchor" href="#_web_interface"></a>Web interface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Request graph is visualized in a way where every request and response is a separate block. Each block contains basic information with full header data available in the tooltip on mouse hover.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/request-craft-graph.png" alt="request craft graph">
+</div>
+</div>
+<div class="paragraph">
+<p>In the second tab all parsed logs can be viewed grouped by exchange and log file.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/request-craft-logs.png" alt="request craft logs">
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="gradle-plugin.html">Gradle plugin</a></span>
+  <span class="next"><a href="architecture.html">Architecture</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script src="../_/js/vendor/lunr.js"></script>
+<script src="../_/js/search-ui.js" id="search-ui-script" data-site-root-path=".." data-snippet-length="100" data-stylesheet="../_/css/search.css"></script>
+<script async src="../search-index.js"></script>
+  </body>
+</html>

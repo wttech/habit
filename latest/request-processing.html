@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Request processing graph :: Habit reference</title>
+    <link rel="canonical" href="https://wttech.github.io/habit/latest/request-processing.html">
+    <link rel="prev" href="request-definition.html">
+    <link rel="next" href="assertions.html">
+    <meta name="description" content="Request processing graph">
+    <meta name="generator" content="Antora 3.0.1">
+    <link rel="stylesheet" href="../_/css/site.css">
+    <script>var uiRootPath = '../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://wttech.github.io/habit">Habit reference</a>
+         <div class="navbar-item search hide-for-print">
+            <div id="search-field" class="field">
+                <input id="search-input" type="text" placeholder="Search the docs">
+            </div>
+        </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ROOT" data-version="0.12.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Habit</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Habit</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="project-setup.html">Project setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="server-setup.html">Server setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="test-execution.html">Automated tests</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="request-definition.html">Request definition</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="request-processing.html">Request processing graph</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="assertions.html">Assertions</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="gradle-plugin.html">Gradle plugin</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="exploratory-testing.html">Exploratory testing</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Habit</span>
+    <span class="version">0.12.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">Habit</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">0.12.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Habit</a></li>
+    <li><a href="request-processing.html">Request processing graph</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/wttech/habit/edit/main/server/src/docs/antora/modules/ROOT/pages/request-processing.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Request processing graph</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>When Habit testing environment receives a test request it is sent to the Apache server within that environment. It is then processed by Apache httpd and possibly forwarded to another server which might be a real proxy or a mock.</p>
+</div>
+<div class="paragraph">
+<p>Exchange details (request + response) are recorded at each step before being forwarded to the target host.</p>
+</div>
+<div class="paragraph">
+<p>Together exchanges form a graph representing the way the request has been processed from the original request all the way to the final response returned to the client.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deny_all_requests"><a class="anchor" href="#_deny_all_requests"></a>Deny all requests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s image the simplest Apache configuration where 404 Not Found is returned in response to any request sent to <code>not-found.com</code> vhost.</p>
+</div>
+<div class="listingblock">
+<div class="title">vhosts/not-found.conf</div>
+<div class="content">
+<pre>RewriteRule ^ - [L,R=404]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The request processing graph will contain a root exchange and a single child exchange on the second level.</p>
+</div>
+<div class="paragraph">
+<p>The root exchange always consists of the original request and the final response.</p>
+</div>
+<div class="paragraph">
+<p>The child exchange will contain data intercepted by a MitM proxy placed right before the <code>not-found.com</code> host.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/simple-graph.png" alt="simple graph">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_https_redirect"><a class="anchor" href="#_https_redirect"></a>HTTPS redirect</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If your configuration redirects all HTTP requests to HTTPS then the processing graph will be a bit more complicated.</p>
+</div>
+<div class="listingblock">
+<div class="title">vhosts/force-https.conf</div>
+<div class="content">
+<pre>// force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+// deny all HTTPS requests
+RewriteRule ^ - [L,R=404]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The root exchange will contain the same data but there will be two child exchanges at the second level:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>HTTP request with a 301 response redirecting to HTTPS</p>
+</li>
+<li>
+<p>HTTPS request with a 404 response</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/redirect-graph.png" alt="redirect graph">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reverse_proxy"><a class="anchor" href="#_reverse_proxy"></a>Reverse proxy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In a reverse proxy setup Apache is responsible for forwarding requests to one of servers not reachable from the outside world.</p>
+</div>
+<div class="paragraph">
+<p>The configuration shown below will forward all <code>front-domain</code> vhost requests to <code>back-domain</code> host.</p>
+</div>
+<div class="paragraph">
+<p>In Habit testing environment <code>front-domain</code> would be processed by a real Apache server while <code>back-domain</code> would be a simple mock.</p>
+</div>
+<div class="listingblock">
+<div class="title">vhosts/front-domain.conf</div>
+<div class="content">
+<pre>// forward all requests to back-domain host
+RewriteRule (.*) http://back-domain:8080$1 [P]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here the request processing graph will contain three exchanges, each on a different level:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>root exchange stays the same</p>
+</li>
+<li>
+<p><code>front-domain</code> exchange contains the original request and the response returned by Apache</p>
+</li>
+<li>
+<p><code>back-domain</code> exchange contains the forwarded request (with rewritten URL) and the response returned by the mock server (200 OK with empty body)</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/forward-graph.png" alt="forward graph">
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="request-definition.html">Request definition</a></span>
+  <span class="next"><a href="assertions.html">Assertions</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script src="../_/js/vendor/lunr.js"></script>
+<script src="../_/js/search-ui.js" id="search-ui-script" data-site-root-path=".." data-snippet-length="100" data-stylesheet="../_/css/search.css"></script>
+<script async src="../search-index.js"></script>
+  </body>
+</html>

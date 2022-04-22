@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Server setup :: Habit reference</title>
+    <link rel="canonical" href="https://wttech.github.io/habit/latest/server-setup.html">
+    <link rel="prev" href="project-setup.html">
+    <link rel="next" href="test-execution.html">
+    <meta name="description" content="Server setup">
+    <meta name="generator" content="Antora 3.0.1">
+    <link rel="stylesheet" href="../_/css/site.css">
+    <script>var uiRootPath = '../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://wttech.github.io/habit">Habit reference</a>
+         <div class="navbar-item search hide-for-print">
+            <div id="search-field" class="field">
+                <input id="search-input" type="text" placeholder="Search the docs">
+            </div>
+        </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ROOT" data-version="0.12.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Habit</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Habit</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="project-setup.html">Project setup</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="server-setup.html">Server setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="test-execution.html">Automated tests</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="request-definition.html">Request definition</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="request-processing.html">Request processing graph</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="assertions.html">Assertions</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="gradle-plugin.html">Gradle plugin</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="exploratory-testing.html">Exploratory testing</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="architecture.html">Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Habit</span>
+    <span class="version">0.12.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">Habit</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">0.12.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Habit</a></li>
+    <li><a href="server-setup.html">Server setup</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/wttech/habit/edit/main/server/src/docs/antora/modules/ROOT/pages/server-setup.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Server setup</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Habit server is the central hub with which clients can communicate to create test environments and to send test requests. It can be set up on your local machine or on shared infrastructure.</p>
+</div>
+<div class="paragraph">
+<p>There are two ways to set it up:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>through Habit Gradle plugin</p>
+</li>
+<li>
+<p>with Habit installer</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>No matter which method is used you will end up with the same Habit stack created on your Docker Swarm installation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gradle_plugin"><a class="anchor" href="#_gradle_plugin"></a>Gradle plugin</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This approach is ideal for the local environment where a Habit project has already been set up either from scratch or by cloning a git repository.</p>
+</div>
+<div class="paragraph">
+<p>Add the plugin to the <code>build.gradle.kts</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle.kts</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">plugins {
+    id("io.wttech.habit") version "0.12.0"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To install the server execute the <code>./gradlew :serverProvision</code> command.</p>
+</div>
+<div class="paragraph">
+<p>To uninstall execute the <code>./gradlew :serverShutdown</code> command or just remove the <code>habit</code> stack from your Docker.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="project-setup.html">Project setup</a></span>
+  <span class="next"><a href="test-execution.html">Automated tests</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script src="../_/js/vendor/lunr.js"></script>
+<script src="../_/js/search-ui.js" id="search-ui-script" data-site-root-path=".." data-snippet-length="100" data-stylesheet="../_/css/search.css"></script>
+<script async src="../search-index.js"></script>
+  </body>
+</html>
