@@ -2,7 +2,6 @@ rootProject.name = "habit"
 
 pluginManagement {
     plugins {
-        id("net.linguica.maven-settings") version "0.5"
         id("pl.allegro.tech.build.axion-release") version "1.13.6"
         id("org.springframework.boot") version "2.6.6"
         id("io.freefair.lombok") version "6.4.2"

@@ -1,7 +1,6 @@
 plugins {
     `java-library`
     `maven-publish`
-    id("net.linguica.maven-settings")
     signing
 }
 
