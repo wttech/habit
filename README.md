@@ -7,7 +7,7 @@ Execute test requests and verify if they were processed as expected.
 
 ## Documentation
 
-[Documentation](wttech.github.io/habit)
+[Documentation](https://wttech.github.io/habit)
 
 ## Local development
 
