@@ -20,4 +20,4 @@ jobs:
           distribution: 'adopt'
           java-version: '8'
       - name: Verify build
-        run: ./gradlew build test javadoc publishToLocalDocker
+        run: ./gradlew --stacktrace build test javadoc publishToLocalDocker
