@@ -1,4 +1,4 @@
-name: Release
+name: Publish
 
 on:
   workflow_dispatch:
@@ -7,6 +7,21 @@ on:
         description: 'Tag to publish'
         required: true
         default: ''
+      maven:
+        type: boolean
+        description: 'Publishing jar artifacts'
+        required: true
+        default: true
+      docker:
+        type: boolean
+        description: 'Publishing Docker images'
+        required: true
+        default: true
+      gradle:
+        type: boolean
+        description: 'Publishing Gradle plugin'
+        required: true
+        default: true
 
 jobs:
   build:
@@ -27,15 +42,19 @@ jobs:
       - name: Verify build
         run: ./gradlew build test javadoc publishToLocalDocker
       - name: Login to GitHub Container Registry
+        if: ${{ github.event.inputs.docker }}
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Push docker images
+        if: ${{ github.event.inputs.docker }}
         run: ./gradlew publishToDocker
       - name: Upload artifacts to Maven Central staging
+        if: ${{ github.event.inputs.maven }}
         run: ./gradlew publish :closeAndReleaseStagingRepository -PsigningPassword="${{ secrets.MAVEN_KEY_PASS }}" -PsigningKey="${{ secrets.MAVEN_KEY }}" -PsonatypeUsername="${{ secrets.OSSRH_USER }}" -PsonatypePassword="${{ secrets.OSSRH_PASS }}"
       - name: Publish Gradle plugin
+        if: ${{ github.event.inputs.gradle }}
         run: ./gradlew publishPlugins -Pgradle.publish.key="${{ secrets.GRADLE_KEY }}" -Pgradle.publish.secret="${{ secrets.GRADLE_SECRET }}"
 
