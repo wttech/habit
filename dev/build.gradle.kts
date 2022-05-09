@@ -1,4 +1,3 @@
-val proxyImageName: String by project
 val serverImageName: String by project
 
 tasks.register<Exec>("installServer") {

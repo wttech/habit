@@ -20,8 +20,6 @@ configure<VersionConfig> {
         "replacement" to KotlinClosure2<String, pl.allegro.tech.build.axion.release.domain.hooks.HookContext, String>({ v, _ -> "\"version\": \"$v\"" })
     ))
     hooks.pre("commit")
-
-    tag.prefix = "release-"
 }
 
 nexusPublishing {

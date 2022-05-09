@@ -90,14 +90,14 @@ val publishToLocalDocker = tasks.register<Exec>("publishToLocalDocker") {
     commandLine = listOf("./buildImage.sh", project.version.toString())
 }
 
-val publishToDockerHub = tasks.register<Exec>("publishToDockerHub") {
+val publishToDocker = tasks.register<Exec>("publishToDocker") {
     dependsOn(publishToLocalDocker)
     commandLine = listOf("./push.sh", project.version.toString())
 }
 
 jib {
     to {
-        image = "habitester/habit-server:${project.version}"
+        image = "ghcr.io/wttech/habit/habit-server:${project.version}"
     }
 }
 

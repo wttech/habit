@@ -1,8 +1,8 @@
 habit:
   images:
     common:
-      registry: ''
-      folder: 'habitester'
+      registry: 'ghcr.io'
+      folder: 'wttech/habit'
       tag: '${version}'
     request-persister:
       image: 'request-persister'

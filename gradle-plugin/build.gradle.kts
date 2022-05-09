@@ -16,7 +16,6 @@ configure<JavaPluginExtension> {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-val proxyImageName: String by project
 val serverImageName: String by project
 
 dependencies {

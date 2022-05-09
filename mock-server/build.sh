@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build -t habitester/mock-server:${1} .
+docker build -t ghcr.io/wttech/habit/mock-server:${1} .

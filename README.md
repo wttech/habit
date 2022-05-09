@@ -46,7 +46,7 @@ Install Habit Server - released version
 
 Semantic version scheme is used.
 
-All Java / Docker / NPM artifacts use the same version number.
+All Java / Docker / Gradle plugin artifacts use the same version number.
 
 ## Contributing
 

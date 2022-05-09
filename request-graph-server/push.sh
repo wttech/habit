@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker push habitester/request-graph-server:${1}
+docker push ghcr.io/wttech/habit/request-graph-server:${1}

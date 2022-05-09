@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker push habitester/mock-server:${1}
+docker push ghcr.io/wttech/habit/mock-server:${1}

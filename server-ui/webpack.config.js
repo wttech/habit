@@ -45,7 +45,10 @@ module.exports = {
             },
             {
                 test: /\.png/,
-                type: 'asset/resource'
+                type: 'asset/resource',
+                generator: {
+                    publicPath: '/resources/'
+                }
             },
         ]
     },
@@ -79,7 +82,8 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             title: 'Index generator',
-            template: 'src/index.html'
+            template: 'src/index.html',
+            publicPath: 'resources/'
         }),
         // npm run bundle-report to check the analysis
         new BundleAnalyzerPlugin({

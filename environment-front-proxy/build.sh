@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build -t habitester/environment-front-proxy:${1} .
+docker build -t ghcr.io/wttech/habit/environment-front-proxy:${1} .
