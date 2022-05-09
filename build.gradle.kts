@@ -44,3 +44,8 @@ allprojects {
         gradlePluginPortal()
     }
 }
+
+tasks.register("publishToMavenCentral") {
+    dependsOn(":client:publishToSonatype",
+        ":junit-plugin:publishToSonatype")
+}

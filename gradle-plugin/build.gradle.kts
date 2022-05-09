@@ -59,18 +59,6 @@ tasks.withType<Test> {
 }
 
 tasks {
-    val publishPluginMavenPublicationToSonatypeRepository by existing
-
-    publishPluginMavenPublicationToSonatypeRepository {
-        enabled = false
-    }
-
-    val publishGradlePluginPluginMarkerMavenPublicationToSonatypeRepository by existing
-
-    publishGradlePluginPluginMarkerMavenPublicationToSonatypeRepository {
-        enabled = false
-    }
-
     val generateProperties by existing
 
     jar {

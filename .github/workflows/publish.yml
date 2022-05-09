@@ -53,7 +53,7 @@ jobs:
         run: ./gradlew publishToDocker
       - name: Upload artifacts to Maven Central staging
         if: ${{ github.event.inputs.maven }}
-        run: ./gradlew publish :closeAndReleaseStagingRepository -PsigningPassword="${{ secrets.MAVEN_KEY_PASS }}" -PsigningKey="${{ secrets.MAVEN_KEY }}" -PsonatypeUsername="${{ secrets.OSSRH_USER }}" -PsonatypePassword="${{ secrets.OSSRH_PASS }}"
+        run: ./gradlew :publishToMavenCentral :closeAndReleaseStagingRepository -PsigningPassword="${{ secrets.MAVEN_KEY_PASS }}" -PsigningKey="${{ secrets.MAVEN_KEY }}" -PsonatypeUsername="${{ secrets.OSSRH_USER }}" -PsonatypePassword="${{ secrets.OSSRH_PASS }}"
       - name: Publish Gradle plugin
         if: ${{ github.event.inputs.gradle }}
         run: ./gradlew publishPlugins -Pgradle.publish.key="${{ secrets.GRADLE_KEY }}" -Pgradle.publish.secret="${{ secrets.GRADLE_SECRET }}"
