@@ -1,6 +1,6 @@
 {
     "name": "habit",
-    "version": "0.12.0",
+    "version": "0.13.0",
     "description": "Habit Server Webapp",
     "private": true,
     "engines": {
