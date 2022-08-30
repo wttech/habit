@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Architecture :: Habit reference</title>
-    <link rel="canonical" href="https://wttech.github.io/habit/latest/architecture.html">
-    <link rel="prev" href="exploratory-testing.html">
-    <meta name="description" content="Architecture">
+    <title>Configuration reference :: Habit reference</title>
+    <link rel="canonical" href="https://wttech.github.io/habit/latest/haibt-json-reference.html">
+    <meta name="description" content="Configuration reference">
     <meta name="generator" content="Antora 3.0.1">
     <link rel="stylesheet" href="../_/css/site.css">
     <script>var uiRootPath = '../_'</script>
@@ -75,7 +74,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="exploratory-testing.html">Exploratory testing</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="architecture.html">Architecture</a>
   </li>
 </ul>
@@ -109,74 +108,48 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Habit</a></li>
-    <li><a href="architecture.html">Architecture</a></li>
+    <li><a href="haibt-json-reference.html">Configuration reference</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/wttech/habit/edit/main/server/src/docs/antora/modules/ROOT/pages/architecture.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/wttech/habit/edit/main/server/src/docs/antora/modules/ROOT/pages/haibt-json-reference.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Architecture</h1>
+<h1 class="page">Configuration reference</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Habit has been designed to work in server-client model where server is responsible for creating the testing environment and routing test requests to the correct one.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/architecture.png" alt="architecture">
-</div>
-</div>
-<div class="paragraph">
-<p>Currently there are two Java-based clients available:</p>
+<p>There are two types of configuration you can apply to Habit.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>JUnit extension - automated tests execution</p>
+<p>client configuration</p>
 </li>
 <li>
-<p>Gradle plugin - manual / exploratory testing</p>
+<p>environment configuration</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_client"><a class="anchor" href="#_client"></a>Client</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
 <h2 id="_environment"><a class="anchor" href="#_environment"></a>Environment</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Each environment consists of:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>entrypoint - small server executing test requests and collecting information when processing is done</p>
-</li>
-<li>
-<p>one or more Apache servers - real servers containing configuration from the source project</p>
-</li>
-<li>
-<p>zero or more mock servers - dummy servers representing target hosts to which requests are forwarded based on rewrite rules</p>
-</li>
-<li>
-<p>MitM proxy for every hostname - to intercept exchanges and persist their details for later verification</p>
-</li>
-</ul>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/environment.png" alt="environment">
+<p>Environment configuration is stored at the project root in the file named <code>habit.json</code>.</p>
 </div>
 </div>
 </div>
-</div>
-<nav class="pagination">
-  <span class="prev"><a href="exploratory-testing.html">Exploratory testing</a></span>
-</nav>
 </article>
   </div>
 </main>

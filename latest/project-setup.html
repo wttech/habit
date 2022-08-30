@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Project setup :: Habit reference</title>
     <link rel="canonical" href="https://wttech.github.io/habit/latest/project-setup.html">
-    <link rel="prev" href="prerequisites.html">
+    <link rel="prev" href="setup.html">
     <link rel="next" href="server-setup.html">
     <meta name="description" content="Setup">
     <meta name="generator" content="Antora 3.0.1">
@@ -47,13 +47,16 @@
     <a class="nav-link" href="index.html">Habit</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="setup.html">Setup</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="project-setup.html">Project setup</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="server-setup.html">Server setup</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="test-execution.html">Automated tests</a>
@@ -107,6 +110,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Habit</a></li>
+    <li><a href="setup.html">Setup</a></li>
     <li><a href="project-setup.html">Project setup</a></li>
   </ul>
 </nav>
@@ -125,6 +129,9 @@
 </div>
 <div class="paragraph">
 <p>It will contain Apache configuration, environment details and the testing code.</p>
+</div>
+<div class="paragraph">
+<p>If you want to jump straight into the code then clone the example repository <code><a href="https://github.com/wttech/habit-example" class="bare">https://github.com/wttech/habit-example</a></code>.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -191,6 +198,9 @@
 </div>
 <div class="ulist">
 <ul>
+<li>
+<p>Java 8+</p>
+</li>
 <li>
 <p>JUnit 5</p>
 </li>
@@ -377,7 +387,7 @@
     "ipRange": "172.30.0.0/16",
     "gateway": "172.30.0.1"
   },
-  // list of Apache servers to be created
+  // list of Apache servers to be created, usually only a single one
   "servers": [
     {
       // identifier
@@ -511,8 +521,19 @@ public class BasicRequestTest {
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_local_development"><a class="anchor" href="#_local_development"></a>Local development</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The setup described above also allows you to provision a Habit server locally which just a single command.</p>
+</div>
+<div class="paragraph">
+<p><code>./gradlew :serverProvision</code></p>
+</div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="prerequisites.html">Prerequisites</a></span>
+  <span class="prev"><a href="setup.html">Setup</a></span>
   <span class="next"><a href="server-setup.html">Server setup</a></span>
 </nav>
 </article>

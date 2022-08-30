@@ -47,13 +47,16 @@
     <a class="nav-link" href="index.html">Habit</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
-  </li>
-  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="setup.html">Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="project-setup.html">Project setup</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="server-setup.html">Server setup</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="test-execution.html">Automated tests</a>
@@ -107,6 +110,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Habit</a></li>
+    <li><a href="setup.html">Setup</a></li>
     <li><a href="server-setup.html">Server setup</a></li>
   </ul>
 </nav>
@@ -129,15 +133,32 @@
 <div class="ulist">
 <ul>
 <li>
-<p>through Habit Gradle plugin</p>
+<p>through the Habit Gradle plugin</p>
 </li>
 <li>
-<p>with Habit installer</p>
+<p>with the standalone Habit installer</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>No matter which method is used you will end up with the same Habit stack created on your Docker Swarm installation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_docker"><a class="anchor" href="#_docker"></a>Docker</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Habit Server must be hosted on Docker. The client side does not require it.</p>
+</div>
+<div class="paragraph">
+<p>On Linux just install the appropriate package.</p>
+</div>
+<div class="paragraph">
+<p>On Windows and Mac install Docker Desktop.</p>
+</div>
+<div class="paragraph">
+<p>Detailed instructions for all platforms can be found here: <a href="https://docs.docker.com/engine/install/" class="bare">https://docs.docker.com/engine/install/</a>.</p>
 </div>
 </div>
 </div>
@@ -163,6 +184,36 @@
 </div>
 <div class="paragraph">
 <p>To uninstall execute the <code>./gradlew :serverShutdown</code> command or just remove the <code>habit</code> stack from your Docker.</p>
+</div>
+<div class="paragraph">
+<p>Full example is available on Github: <a href="https://github.com/wttech/habit-example" class="bare">https://github.com/wttech/habit-example</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_standalone_installer"><a class="anchor" href="#_standalone_installer"></a>Standalone installer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you want to install Habit on shared infrastructure then it should be easier to clone the Habit installer repository and execute its installation script.</p>
+</div>
+<div class="paragraph">
+<p>It makes sure that Docker is present with the Swarm mode enabled and then deploys the Habit server as a stack on Docker.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>git clone <a href="https://github.com/wttech/habit-installer.git" class="bare">https://github.com/wttech/habit-installer.git</a></code></p>
+</li>
+<li>
+<p><code>cd habit-installer</code></p>
+</li>
+<li>
+<p><code>./install.sh</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To remove the server execute the <code>./uninstall.sh</code> command or just remove the <code>habit</code> stack from your Docker.</p>
 </div>
 </div>
 </div>

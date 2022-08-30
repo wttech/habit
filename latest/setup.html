@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Prerequisites :: Habit reference</title>
-    <link rel="canonical" href="https://wttech.github.io/habit/latest/prerequisites.html">
+    <title>Setup :: Habit reference</title>
+    <link rel="canonical" href="https://wttech.github.io/habit/latest/setup.html">
     <link rel="prev" href="index.html">
     <link rel="next" href="project-setup.html">
-    <meta name="description" content="Prerequisites">
+    <meta name="description" content="Setup">
     <meta name="generator" content="Antora 3.0.1">
     <link rel="stylesheet" href="../_/css/site.css">
     <script>var uiRootPath = '../_'</script>
@@ -47,13 +47,16 @@
     <a class="nav-link" href="index.html">Habit</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
-  </li>
-  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="setup.html">Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="project-setup.html">Project setup</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="server-setup.html">Server setup</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="test-execution.html">Automated tests</a>
@@ -107,61 +110,22 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Habit</a></li>
-    <li><a href="prerequisites.html">Prerequisites</a></li>
+    <li><a href="setup.html">Setup</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/wttech/habit/edit/main/server/src/docs/antora/modules/ROOT/pages/prerequisites.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/wttech/habit/edit/main/server/src/docs/antora/modules/ROOT/pages/setup.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Prerequisites</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Setup</h1>
 <div class="paragraph">
-<p>To be able to use Habit on your local machine you will need:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>JDK 8+</p>
-</li>
-<li>
-<p>Docker</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_java"><a class="anchor" href="#_java"></a>Java</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>For setting up the project you will need Java in version 8 or newer.</p>
+<p>Habit works using the client server architecture and thus you have to set up two elements for the whole solution to work. You need the project with Habit environment configuration and tests and the server (environment) these tests will be executed against.</p>
 </div>
 <div class="paragraph">
-<p><a href="https://adoptopenjdk.net/" class="bare">https://adoptopenjdk.net/</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_docker"><a class="anchor" href="#_docker"></a>Docker</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Habit Server must be hosted on Docker. The client side does not require it.</p>
-</div>
-<div class="paragraph">
-<p>On Linux just install the appropriate package.</p>
-</div>
-<div class="paragraph">
-<p>On Windows and Mac install Docker Desktop.</p>
-</div>
-<div class="paragraph">
-<p>Detailed instructions for all platforms can be found here: <a href="https://docs.docker.com/engine/install/" class="bare">https://docs.docker.com/engine/install/</a>.</p>
-</div>
-</div>
+<p>If a Habit server is already available on shared infrastructure then you can skip that part.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="index.html">Habit</a></span>
