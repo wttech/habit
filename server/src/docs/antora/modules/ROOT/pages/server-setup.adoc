@@ -7,10 +7,20 @@ Habit server is the central hub with which clients can communicate to create tes
 
 There are two ways to set it up:
 
-* through Habit Gradle plugin
-* with Habit installer
+* through the Habit Gradle plugin
+* with the standalone Habit installer
 
 No matter which method is used you will end up with the same Habit stack created on your Docker Swarm installation.
+
+== Docker
+
+Habit Server must be hosted on Docker. The client side does not require it.
+
+On Linux just install the appropriate package.
+
+On Windows and Mac install Docker Desktop.
+
+Detailed instructions for all platforms can be found here: https://docs.docker.com/engine/install/.
 
 == Gradle plugin
 
@@ -30,13 +40,16 @@ To install the server execute the `./gradlew :serverProvision` command.
 
 To uninstall execute the `./gradlew :serverShutdown` command or just remove the `habit` stack from your Docker.
 
-//== Standalone installer
-//
-//If you want to install Habit on shared infrastructure then it should be easier to clone the Habit installer repository and execute its installation script.
-//
-//* `git clone https://github.com/wttech/habit-installer.git`
-//* `cd habit-installer`
-//* `./install.sh`
-//
-//To remove the server execute the `./uninstall.sh` command or just remove the `habit` stack from your Docker.
+Full example is available on Github: https://github.com/wttech/habit-example
 
+== Standalone installer
+
+If you want to install Habit on shared infrastructure then it should be easier to clone the Habit installer repository and execute its installation script.
+
+It makes sure that Docker is present with the Swarm mode enabled and then deploys the Habit server as a stack on Docker.
+
+* `git clone https://github.com/wttech/habit-installer.git`
+* `cd habit-installer`
+* `./install.sh`
+
+To remove the server execute the `./uninstall.sh` command or just remove the `habit` stack from your Docker.

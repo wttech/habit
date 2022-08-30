@@ -1,0 +1,16 @@
+= Configuration reference
+:description: Configuration reference
+:sectanchors:
+:page-pagination:
+
+There are two types of configuration you can apply to Habit.
+
+* client configuration
+* environment configuration
+
+== Client
+
+== Environment
+
+Environment configuration is stored at the project root in the file named `habit.json`.
+

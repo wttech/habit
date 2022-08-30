@@ -1,0 +1,8 @@
+= Setup
+:description: Setup
+:sectanchors:
+:page-pagination:
+
+Habit works using the client server architecture and thus you have to set up two elements for the whole solution to work. You need the project with Habit environment configuration and tests and the server (environment) these tests will be executed against.
+
+If a Habit server is already available on shared infrastructure then you can skip that part.

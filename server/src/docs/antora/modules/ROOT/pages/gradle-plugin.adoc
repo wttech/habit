@@ -32,7 +32,7 @@ All artifacts have the same version number so it is useful to define Habit versi
 .gradle.properties
 [source,properties,subs="attributes+"]
 ----
-habitVersion=0.12.0
+habitVersion={page-version}
 ----
 
 Then it can be used in settings.gradle.kts to define plugin version.

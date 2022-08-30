@@ -7,6 +7,8 @@ To be able to create the testing environment based on your httpd configuration f
 
 It will contain Apache configuration, environment details and the testing code.
 
+If you want to jump straight into the code then clone the example repository `https://github.com/wttech/habit-example`.
+
 * project root
 ** gradle - Gradle wrapper folder
 ** httpdConfiguration - tested Apache configuration
@@ -26,6 +28,7 @@ To be able to communicate with Habit Server a client library must be included in
 
 We will be using:
 
+* Java 8+
 * JUnit 5
 * Habit JUnit 5 extension
 * Logback
@@ -111,7 +114,7 @@ All this information should be stored in a file named `habit.json` located right
     "ipRange": "172.30.0.0/16",
     "gateway": "172.30.0.1"
   },
-  // list of Apache servers to be created
+  // list of Apache servers to be created, usually only a single one
   "servers": [
     {
       // identifier
@@ -224,3 +227,9 @@ public class BasicRequestTest {
 
 }
 ----
+
+== Local development
+
+The setup described above also allows you to provision a Habit server locally which just a single command.
+
+`./gradlew :serverProvision`

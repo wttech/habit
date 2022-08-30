@@ -12,7 +12,7 @@ To be able to use this feature you have to:
 * create the testing environment through Habit Gradle plugin task `:environmentStart`
 * visit the `http://server-host:7080` URL in a browser
 * go to your environment to the request crafting section
-* define a request, sent it and check the graph
+* define a request, send it and check the graph
 * make changes to Apache configuration
 * deploy changes by executing `./gradlew :environmentStart`
 * send the same request again to check the updated processing graph
